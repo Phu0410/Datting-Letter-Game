@@ -1041,7 +1041,7 @@ foodChoice.addEventListener("submit", async (e) => {
           clearInterval(redirectCountdownTimer);
           redirectCountdownTimer = 0;
           window.location.href =
-            "https://phu0410.github.io/CardHoverAnimation/#";
+            "https://phu0410.github.io/CardHoverAnimationCV/";
           return;
         }
         foodChoiceCountdown.textContent = `Chuyển trang sau ${seconds} giây… sẽ có bất ngờ mới`;
