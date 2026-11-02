@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phu's Dating Letter</title>
+  <meta name="description" content="A cute interactive pixel-art love letter celebrating one month of marriage. Open the envelope and answer the question." />
+  <link rel="icon" type="image/png" href="./textures/love-message.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="stylesheet" href="./love.css" />
+</head>
+<body>
+  <div class="fx" aria-hidden="true">
+    <div class="fx__aurora"></div>
+    <div class="fx__vignette"></div>
+    <div class="fx__grain"></div>
+  </div>
+
+  <div class="rain" id="rain" aria-hidden="true"></div>
+
+  <main class="scene">
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+    <div class="stage stage--aim" id="aimStage" tabindex="0" role="application"
+         aria-label="Aim Cupid's arrow at the heart in the middle of the letter and release to shoot. Press space to shoot.">
+
+      <div class="target" id="target">
+        <!-- design by chatgpt: SVG envelope artwork adapted from Love Letter. -->
+        <!-- design by chatgpt: rounded dashed frame stays separate from the envelope shadow. -->
+        <div class="envelope-frame">
+        <svg class="envelope" viewBox="0 0 240 170" aria-hidden="true">
+          <defs><clipPath id="proposal-env-clip"><rect x="6" y="6" width="228" height="150" rx="10" /></clipPath></defs>
+          <g clip-path="url(#proposal-env-clip)">
+            <rect x="6" y="6" width="228" height="150" fill="#fbf5f1" />
+            <path d="M6 6 L112 88 L6 156 Z" fill="#f6ebe6" />
+            <path d="M234 6 L128 88 L234 156 Z" fill="#f6ebe6" />
+            <path d="M6 156 L120 80 L234 156 Z" fill="#fdf8f5" stroke="#e7c3c6" stroke-width="4" stroke-linejoin="round" />
+            <path d="M6 6 L120 92 L234 6 Z" fill="#e8b6c4" stroke="#d99fae" stroke-width="3" stroke-linejoin="round" />
+          </g>
+          <rect x="6" y="6" width="228" height="150" rx="10" fill="none" stroke="#c46f78" stroke-width="7" />
+          <path d="M120 112 C102 99 96 88 101 80 C106 72 116 73 120 81 C124 73 134 72 139 80 C144 88 138 99 120 112 Z" fill="#cf4456" stroke="#b8344a" stroke-width="2" stroke-linejoin="round" />
+          <ellipse cx="110" cy="84" rx="4" ry="2.5" fill="#fff" opacity=".45" transform="rotate(-30 110 84)" />
+        </svg>
+        </div>
+        <p class="target__label">
+          <span class="heart heart--inline"></span>
+          A Little Surprise
+          <span class="heart heart--inline"></span>
+        </p>
+      </div>
+
+      <!-- design by chatgpt: vertical arrow artwork follows the Love Letter reference. -->
+      <div class="arrow" id="arrow" aria-hidden="true">
+        <span class="arrow__tip"></span><span class="arrow__shaft"></span><span class="arrow__fletch"></span>
+      </div>
+
+      <div class="archer" id="archer" aria-hidden="true">
+        <!-- design by chatgpt: SVG bow and pullable string adapted from Love Letter. -->
+        <svg class="bow" id="bow" viewBox="0 0 220 110" aria-hidden="true">
+          <path d="M14 70 Q110 0 206 70" stroke="#b07a3c" stroke-width="10" fill="none" stroke-linecap="round" />
+          <polyline id="bowString" points="14,70 110,70 206,70" stroke="#8a5a2b" stroke-width="3" fill="none" />
+          <rect x="94" y="28" width="32" height="16" rx="6" fill="#7a4f27" />
+        </svg>
+        <span class="nock" id="nock"></span>
+      </div>
+
+      <p class="hint" id="hint">
+        <!-- chatgpt design: tell players to aim at the heart in the middle of the letter. -->
+        <span id="hintText">Aim for the heart in the middle of the letter, then release to shoot Cupid&rsquo;s arrow</span>
+        <span class="heart heart--inline"></span>
+      </p>
+    </div>
+
+    <section class="window" id="window" aria-hidden="true">
+      <header class="titlebar">
+        <span class="titlebar__name">LOVE</span>
+        <span class="titlebar__btns">
+          <button class="winbtn" type="button" aria-label="Minimize" tabindex="-1">&#95;</button>
+          <button class="winbtn" type="button" aria-label="Maximize" tabindex="-1">&#9633;</button>
+          <button class="winbtn winbtn--x" type="button" id="closeBtn" aria-label="Close letter">&#10005;</button>
+        </span>
+      </header>
+
+      <div class="heartrow" aria-hidden="true">
+        <span class="heart"></span><span class="hdot"></span>
+        <span class="heart"></span><span class="hdot"></span>
+        <span class="heart"></span>
+      </div>
+
+      <div class="content" id="content">
+        <h1 class="title" id="title">I am Phú! Do u wanna date with me ♡ ? Try No🫪</h1>
+        <canvas class="cat" id="cat" width="16" height="16" aria-label="A little cat holding a heart" role="img"></canvas>
+        <!-- design by chatgpt: overlay the next-step loader below the cat without reflowing the celebration. -->
+        <p class="next-step-loading" id="nextStepLoading" role="status" aria-live="polite" hidden><span class="next-step-loading__spinner" aria-hidden="true"></span><span>Đang chuyển sang bước tiếp theo…</span></p>
+        <form class="food-choice" id="foodChoice" hidden>
+          <input type="hidden" name="_subject" value="Lựa chọn món ăn từ First Letter">
+          <p class="food-choice__prompt">Để lên plan cho buổi Dating Hãy chọn khẩu vị mà cậu thích !</p>
+          <fieldset class="food-choice__list">
+            <legend class="visually-hidden">Chọn món ăn yêu thích</legend>
+            <label class="food-option"><input type="checkbox" name="foods" value="Nhật"><span>Nhật</span></label>
+            <label class="food-option"><input type="checkbox" name="foods" value="Hàn"><span>Hàn</span></label>
+            <label class="food-option"><input type="checkbox" name="foods" value="Thái Lan"><span>Thái Lan</span></label>
+            <label class="food-option"><input type="checkbox" name="foods" value="Mỹ"><span>Mỹ</span></label>
+            <label class="food-option"><input type="checkbox" name="foods" value="Pháp"><span>Pháp</span></label>
+            <label class="food-option"><input type="checkbox" name="foods" value="Anh"><span>Anh</span></label>
+            <label class="food-option"><input type="checkbox" name="foods" value="Việt"><span>Việt</span></label>
+            <label class="food-option"><input type="checkbox" name="foods" value="Ý"><span>Ý</span></label>
+          </fieldset>
+          <label class="food-choice__note-label" for="foodNotes">Ghi chú dị ứng, và mùi vị không thích</label>
+          <textarea class="food-choice__notes" id="foodNotes" name="food_notes" maxlength="300" rows="3" placeholder="Ví dụ: dị ứng hải sản, không thích cay... &#10;Đừng bảo 'thứ tôi dị ứng và không thích chính là Anh' là tui sụp đổ liềnn 🤧"></textarea>
+          <!-- design by chatgpt: collect the sender's name with their food choices. -->
+          <label class="food-choice__note-label" for="foodName">Tên của cậu</label>
+          <input class="food-choice__name" id="foodName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Nhập tên của cậu">
+          <label class="food-choice__note-label" for="foodNotes">Cậu có thể Note lịch rảnh vào Ghi Chú trên hoặc ib nhau cũm được nhó</label>
+          <button class="btn btn--yes food-choice__submit" type="submit">GỬI LỰA CHỌN</button>
+          <p class="food-choice__status" id="foodChoiceStatus" role="status" aria-live="polite"></p>
+          <!-- design by chatpgt: countdown before opening the next page. -->
+          <p class="food-choice__countdown" id="foodChoiceCountdown" aria-live="polite" hidden></p>
+        </form>
+        <div class="buttons" id="buttons">
+          <button class="btn btn--yes" type="button" id="yesBtn">YES</button>
+          <button class="btn btn--no"  type="button" id="noBtn">NO</button>
+        </div>
+        <p class="final" id="final" hidden>
+         
+          <span class="heart heart--inline"></span>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./love.js"></script>
+</body>
+</html>
